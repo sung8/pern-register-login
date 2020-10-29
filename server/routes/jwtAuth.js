@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
 // middleware
 const validInfo = require("../middleware/validinfo");
+const authorization = require("../middleware/authorization");
 
 // register route
 router.post("/register", validInfo, async (req, res) => {
@@ -72,6 +73,15 @@ router.post("/login", validInfo, async (req, res) => {
     // 4. give them the jwt token
     const token = jwtGenerator(user.rows[0].user_id);
     res.json({ token });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+router.get("/is-verify", authorization, async (req, res) => {
+  try {
+    res.json(true);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

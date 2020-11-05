@@ -47,7 +47,7 @@ function App() {
                 !isAuthenticated ? (
                   <Register {...props} setAuth={setAuth} />
                 ) : (
-                  <Redirect to="/register"></Redirect>
+                  <Redirect to="/dashboard"></Redirect>
                 )
               }
             />
